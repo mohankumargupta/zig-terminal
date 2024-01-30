@@ -16,8 +16,11 @@ pub fn main() !void {
     //try Terminal.print(writer, "\x1b[34m√Hello\x1b[0", .{});
     //FgColor(Color.Blue, "Hello")
 
-    const boo = ansi.style.FgBlue ++ "hello" ++ ansi.style.ResetFgColor;
-    const red = ansi.style.BgRed ++ "world" ++ ansi.style.ResetBgColor;
+    const boo = ansi.style.FgBlue ++ "hello" ++ ansi.style.ResetAll;
+    const red = ansi.style.BgRed ++ "world" ++ ansi.style.ResetAll;
+    const green = ansi.style.FgGreen ++ "green" ++ ansi.style.ResetAll;
+
+    try writer.print("{s}", .{green});
     try writer.print("{s}", .{boo});
     try writer.print("{s}", .{red});
     //try Terminal.print(writer, "{s}", .{boo});
