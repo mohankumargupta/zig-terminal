@@ -23,13 +23,18 @@ pub fn main() !void {
     try writer.print("{s}", .{green});
     try writer.print("{s}", .{boo});
     try writer.print("{s}", .{red});
-    const color1 = .{ Terminal.FgColor.Magenta, Terminal.BgColor.Yellow };
-    _ = color1; // autofix
+    const color1 = .{ @intFromEnum(Terminal.FgColor.Black), @intFromEnum(Terminal.BgColor.White) };
     try Terminal.print(
         writer,
         "cool",
         .{},
         .{ 35, 43 },
+    );
+    try Terminal.print(
+        writer,
+        "really cool",
+        .{},
+        color1,
     );
 }
 
