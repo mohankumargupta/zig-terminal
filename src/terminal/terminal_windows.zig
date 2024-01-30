@@ -46,6 +46,6 @@ pub fn deinit(self: *Self) void {
     _ = kernel32.SetConsoleMode(std.io.getStdOut().handle, self._consoleMode);
 }
 
-pub fn write(_: *Self, comptime fmt: []const u8) !void {
+fn write(_: *Self, comptime fmt: []const u8) !void {
     _ = try std.io.getStdOut().writer().print(fmt, .{});
 }

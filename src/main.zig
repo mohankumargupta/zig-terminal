@@ -23,7 +23,14 @@ pub fn main() !void {
     try writer.print("{s}", .{green});
     try writer.print("{s}", .{boo});
     try writer.print("{s}", .{red});
-    //try Terminal.print(writer, "{s}", .{boo});
+    const color1 = .{ Terminal.FgColor.Magenta, Terminal.BgColor.Yellow };
+    _ = color1; // autofix
+    try Terminal.print(
+        writer,
+        "cool",
+        .{},
+        .{ 35, 43 },
+    );
 }
 
 test "simple test" {}
