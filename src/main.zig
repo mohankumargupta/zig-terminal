@@ -1,11 +1,11 @@
 const std = @import("std");
-const Terminal = @import("terminal.zig").Terminal;
+const Terminal = @import("terminal/terminal.zig").Terminal;
 
 pub fn main() !void {
-    var terminal = Terminal{ .in = std.io.getStdIn(), .out = std.io.getStdOut() };
+    var terminal = Terminal{};
     terminal.init();
-    try terminal.write("\x1b[1;31mHello\x1b[0m");
-    defer terminal.deinit();
+    try terminal.write("\x1b[34m√Hello\x1b[0");
+    defer terminal.deinit() catch unreachable;
 }
 
 test "simple test" {}

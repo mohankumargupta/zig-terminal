@@ -1,7 +1,6 @@
 const std = @import("std");
+const ansi = @import("ansi.zig");
 
-in: std.fs.File,
-out: std.fs.File,
 _consoleCP: *UTF8ConsoleOutput = undefined,
 _consoleMode: u32 = 0,
 
@@ -19,7 +18,7 @@ const UTF8ConsoleOutput = struct {
 
     fn init(self: *UTF8ConsoleOutput) void {
         self.original = kernel32.GetConsoleOutputCP();
-        _ = kernel32.SetConsoleOutputCP(cp_utf8);
+        _ = kernel32.SetConsoleOutputCP(65001);
     }
 
     fn deinit(self: *UTF8ConsoleOutput) void {
@@ -30,20 +29,23 @@ const UTF8ConsoleOutput = struct {
 };
 
 pub fn init(self: *Self) void {
-    std.log.info("windows", .{});
+    //std.log.info("windows", .{});
+
+    const ENABLE_VIRTUAL_TERMINAL_PROCESSING = 4;
+    _ = kernel32.GetConsoleMode(std.io.getStdOut().handle, &self._consoleMode);
+    _ = kernel32.SetConsoleMode(std.io.getStdOut().handle, self._consoleMode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+    //_ = kernel32.SetConsoleMode(self.out.handle, 4);
     var utf8 = UTF8ConsoleOutput{};
     utf8.init();
     self._consoleCP = &utf8;
-    const ENABLE_VIRTUAL_TERMINAL_PROCESSING = 4;
-    _ = kernel32.GetConsoleMode(self.in.handle, &self._consoleMode);
-    _ = kernel32.SetConsoleMode(self.out.handle, self._consoleMode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 }
 
-pub fn deinit(self: *Self) void {
+pub fn deinit(self: *Self) !void {
+    _ = try self.write(ansi.style.ResetAll);
     self._consoleCP.deinit();
-    _ = kernel32.SetConsoleMode(self.out.handle, self._consoleMode);
+    _ = kernel32.SetConsoleMode(std.io.getStdOut().handle, self._consoleMode);
 }
 
-pub fn write(self: *Self, comptime fmt: []const u8) !void {
-    _ = try self.out.write(fmt);
+pub fn write(_: *Self, comptime fmt: []const u8) !void {
+    _ = try std.io.getStdOut().writer().print(fmt, .{});
 }
