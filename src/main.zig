@@ -23,7 +23,7 @@ pub fn main() !void {
     try writer.print("{s}", .{green});
     try writer.print("{s}", .{boo});
     try writer.print("{s}", .{red});
-    const color1 = .{ @intFromEnum(Terminal.FgColor.Black), @intFromEnum(Terminal.BgColor.White) };
+    const color1 = .{ Terminal.FgColor.Black, Terminal.BgColor.White };
     try Terminal.print(
         writer,
         "cool",
