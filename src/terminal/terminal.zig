@@ -1,6 +1,11 @@
-const builtin = @import("builtin");
+const std = @import("std");
+const Self = @This();
+const quirks = @import("TerminalQuirks.zig");
 
-pub const Terminal = switch (builtin.os.tag) {
-    .windows => @import("terminal_windows.zig"),
-    else => @import("terminal_linux.zig"),
+pub const TerminalQuirks = quirks.TerminalQuirks;
+
+pub const Terminal = struct {
+    pub fn write(writer: anytype, comptime fmt: []const u8) !void {
+        _ = try writer.print(fmt, .{});
+    }
 };

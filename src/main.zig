@@ -1,11 +1,15 @@
 const std = @import("std");
-const Terminal = @import("terminal/terminal.zig").Terminal;
+const term = @import("terminal/terminal.zig");
+const TerminalQuirks = term.TerminalQuirks;
+const Terminal = term.Terminal;
 
 pub fn main() !void {
-    var terminal = Terminal{};
-    terminal.init();
-    try terminal.write("\x1b[34m√Hello\x1b[0");
-    defer terminal.deinit() catch unreachable;
+    var terminalquirks = TerminalQuirks{};
+    terminalquirks.init();
+    defer terminalquirks.deinit();
+
+    const writer = std.io.getStdOut().writer();
+    try Terminal.write(writer, "\x1b[34m√Hello\x1b[0");
 }
 
 test "simple test" {}

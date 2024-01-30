@@ -40,8 +40,8 @@ pub fn init(self: *Self) void {
     self._consoleCP = &utf8;
 }
 
-pub fn deinit(self: *Self) !void {
-    _ = try self.write(ansi.style.ResetAll);
+pub fn deinit(self: *Self) void {
+    _ = self.write(ansi.style.ResetAll) catch unreachable;
     self._consoleCP.deinit();
     _ = kernel32.SetConsoleMode(std.io.getStdOut().handle, self._consoleMode);
 }
