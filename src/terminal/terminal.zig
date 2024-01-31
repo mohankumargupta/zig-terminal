@@ -5,6 +5,7 @@ const ansi = @import("ansi.zig");
 const ansiStyles = @import("styles.zig");
 const FgColor = ansiStyles.FgColor;
 const BgColor = ansiStyles.BgColor;
+const c = @cImport(@cInclude("getch.h"));
 
 pub const TerminalQuirks = quirks.TerminalQuirks;
 
@@ -54,5 +55,10 @@ pub const Terminal = struct {
     pub fn println(writer: anytype, comptime fmt: []const u8, args: anytype, styles: anytype) !void {
         try print(writer, fmt, args, styles);
         try writer.print("\n", .{});
+    }
+
+    pub fn getch() void {
+        const ch = c.getch();
+        std.log.info("{}", .{ch});
     }
 };

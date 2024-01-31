@@ -46,6 +46,9 @@ pub fn main() !void {
         .{},
         .{FgColor.Blue},
     );
-}
+    try writer.print("Enter a key to exit\n", .{});
+    Terminal.getch();
 
-test "simple test" {}
+    //windows key codes
+    //down: 80, up: 72 left: 75 right: 77
+}
