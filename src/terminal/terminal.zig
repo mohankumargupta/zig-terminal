@@ -9,6 +9,8 @@ const c = @cImport(@cInclude("getch.h"));
 
 pub const TerminalQuirks = quirks.TerminalQuirks;
 
+const ArrowKeys = enum(c_int) { NOTARROW = 0, UP = 17, DOWN = 18, LEFT = 19, RIGHT = 20 };
+
 pub const Terminal = struct {
     fn printAnsiEscapeCodes(writer: anytype, styles: []u8, stylesCount: usize) !void {
         try writer.print("{s}", .{ansi.escape.CSI});
@@ -59,6 +61,8 @@ pub const Terminal = struct {
 
     pub fn getch() void {
         const ch = c.getch();
+        const arrow: ArrowKeys = std.meta.intToEnum(ArrowKeys, ch) catch ArrowKeys.NOTARROW;
         std.log.info("{}", .{ch});
+        std.log.info("{any}", .{arrow});
     }
 };
