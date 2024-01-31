@@ -33,7 +33,6 @@ pub fn main() !void {
         .{},
         .{ 32, 43 },
     );
-    try writer.print("\n", .{});
     try Terminal.print(
         writer,
         "really cool",
@@ -41,13 +40,12 @@ pub fn main() !void {
         color1,
     );
     try writer.print("\n", .{});
-    try Terminal.print(
+    try Terminal.println(
         writer,
         "this is blue",
         .{},
         .{FgColor.Blue},
     );
-    try writer.print("\n", .{});
 }
 
 test "simple test" {}

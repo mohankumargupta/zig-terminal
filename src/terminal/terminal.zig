@@ -50,4 +50,9 @@ pub const Terminal = struct {
             try writer.print("{s}", .{ansi.style.ResetAll});
         }
     }
+
+    pub fn println(writer: anytype, comptime fmt: []const u8, args: anytype, styles: anytype) !void {
+        try print(writer, fmt, args, styles);
+        try writer.print("\n", .{});
+    }
 };
