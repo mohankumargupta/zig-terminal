@@ -6,30 +6,49 @@ const ansi = @import("ansi.zig");
 pub const TerminalQuirks = quirks.TerminalQuirks;
 
 pub const Terminal = struct {
-    pub fn print(writer: anytype, comptime fmt: []const u8, _args: anytype, styles: anytype) !void {
-        _ = _args; // autofix
+    fn printAnsiEscapeCodes(writer: anytype, styles: []u8, stylesCount: usize) !void {
+        try writer.print("{s}", .{ansi.escape.CSI});
+        for (0..stylesCount) |index| {
+            try writer.print("{}", .{styles[index]});
+            if (index < stylesCount - 1) {
+                try writer.print(";", .{});
+            }
+        }
+        try writer.print("m", .{});
+    }
 
-        _ = _args; // autofix
-
+    pub fn print(writer: anytype, comptime fmt: []const u8, args: anytype, styles: anytype) !void {
         const ArgsType = @TypeOf(styles);
         if (@typeInfo(ArgsType) == .Struct) {
             const fields_info = std.meta.fields(ArgsType);
 
-            inline for (0..fields_info.len) |i| {
-                const field_type = fields_info[i];
+            var styleCount: usize = 0;
+            const maxStyleLength = 5;
+            const length = fields_info.len * maxStyleLength;
+            var ansiescapecodes: [length]u8 = undefined;
+
+            inline for (0..fields_info.len) |index| {
+                const field_type = fields_info[index];
                 std.log.info("{any}", .{field_type.type});
                 switch (field_type.type) {
-                    FgColor => {
-                        std.log.info("{any}", .{@intFromEnum(styles[0])});
+                    FgColor, BgColor => {
+                        std.log.info("{any}", .{@intFromEnum(styles[index])});
+                        ansiescapecodes[styleCount] = @intFromEnum(styles[index]);
+                        styleCount += 1;
+                    },
+                    comptime_int => {
+                        ansiescapecodes[styleCount] = styles[index];
+                        styleCount += 1;
                     },
                     else => {},
                 }
             }
+
+            std.log.info("{any} count: {}", .{ ansiescapecodes, styleCount });
+            try printAnsiEscapeCodes(writer, &ansiescapecodes, styleCount);
+            try writer.print(fmt, args);
+            try writer.print("{s}", .{ansi.style.ResetAll});
         }
-
-        const result = comptime ansi.csi.SGR(styles) ++ fmt ++ ansi.style.ResetAll;
-
-        _ = try writer.print("{s}", .{result});
     }
 
     pub const FgColor = enum(u8) {

@@ -2,9 +2,9 @@ const std = @import("std");
 const term = @import("terminal/terminal.zig");
 const TerminalQuirks = term.TerminalQuirks;
 const Terminal = term.Terminal;
-const ansi = @import("terminal/ansi.zig");
-const Color = ansi.color.Color;
-const FgColor = ansi.color.Fg;
+//const ansi = @import("terminal/ansi.zig");
+//const Color = ansi.color.Color;
+//const FgColor = ansi.color.Fg;
 
 pub fn main() !void {
     var terminalquirks = TerminalQuirks{};
@@ -16,26 +16,29 @@ pub fn main() !void {
     //try Terminal.print(writer, "\x1b[34m√Hello\x1b[0", .{});
     //FgColor(Color.Blue, "Hello")
 
-    const boo = ansi.style.FgBlue ++ "hello" ++ ansi.style.ResetAll;
-    const red = ansi.style.BgRed ++ "world" ++ ansi.style.ResetAll;
-    const green = ansi.style.FgGreen ++ "green" ++ ansi.style.ResetAll;
+    //const boo = ansi.style.FgBlue ++ "hello" ++ ansi.style.ResetAll;
+    //const red = ansi.style.BgRed ++ "world" ++ ansi.style.ResetAll;
+    //const green = ansi.style.FgGreen ++ "green" ++ ansi.style.ResetAll;
 
-    try writer.print("{s}", .{green});
-    try writer.print("{s}", .{boo});
-    try writer.print("{s}", .{red});
-    const color1 = .{ Terminal.FgColor.Black, Terminal.BgColor.White };
+    //try writer.print("{s}", .{green});
+    //try writer.print("{s}", .{boo});
+    //try writer.print("{s}", .{red});
+
+    const color1 = .{ Terminal.FgColor.Magenta, Terminal.BgColor.White };
     try Terminal.print(
         writer,
         "cool",
         .{},
-        .{ 35, 43 },
+        .{ 32, 43 },
     );
+    try writer.print("\n", .{});
     try Terminal.print(
         writer,
         "really cool",
         .{},
         color1,
     );
+    try writer.print("\n", .{});
 }
 
 test "simple test" {}
