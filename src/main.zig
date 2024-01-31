@@ -2,6 +2,8 @@ const std = @import("std");
 const term = @import("terminal/terminal.zig");
 const TerminalQuirks = term.TerminalQuirks;
 const Terminal = term.Terminal;
+const FgColor = @import("terminal/styles.zig").FgColor;
+const BgColor = @import("terminal/styles.zig").BgColor;
 //const ansi = @import("terminal/ansi.zig");
 //const Color = ansi.color.Color;
 //const FgColor = ansi.color.Fg;
@@ -24,7 +26,7 @@ pub fn main() !void {
     //try writer.print("{s}", .{boo});
     //try writer.print("{s}", .{red});
 
-    const color1 = .{ Terminal.FgColor.Magenta, Terminal.BgColor.White };
+    const color1 = .{ FgColor.Magenta, BgColor.White };
     try Terminal.print(
         writer,
         "cool",
@@ -37,6 +39,13 @@ pub fn main() !void {
         "really cool",
         .{},
         color1,
+    );
+    try writer.print("\n", .{});
+    try Terminal.print(
+        writer,
+        "this is blue",
+        .{},
+        .{FgColor.Blue},
     );
     try writer.print("\n", .{});
 }
