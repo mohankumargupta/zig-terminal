@@ -1,13 +1,10 @@
 const std = @import("std");
 const Self = @This();
-const quirks = @import("TerminalQuirks.zig");
 const ansi = @import("ansi.zig");
 const ansiStyles = @import("styles.zig");
 const FgColor = ansiStyles.FgColor;
 const BgColor = ansiStyles.BgColor;
 const c = @cImport(@cInclude("getch.h"));
-
-pub const TerminalQuirks = quirks.TerminalQuirks;
 
 const ArrowKeys = enum(c_int) { NOTARROW = 0, UP = 17, DOWN = 18, LEFT = 19, RIGHT = 20 };
 

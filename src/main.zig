@@ -1,6 +1,6 @@
 const std = @import("std");
 const term = @import("terminal/terminal.zig");
-const TerminalQuirks = term.TerminalQuirks;
+const TerminalQuirks = @import("terminal/terminal_quirks.zig").TerminalQuirks;
 const Terminal = term.Terminal;
 const FgColor = @import("terminal/styles.zig").FgColor;
 const BgColor = @import("terminal/styles.zig").BgColor;
@@ -9,8 +9,7 @@ const BgColor = @import("terminal/styles.zig").BgColor;
 //const FgColor = ansi.color.Fg;
 
 pub fn main() !void {
-    var terminalquirks = TerminalQuirks{};
-    terminalquirks.init();
+    var terminalquirks = TerminalQuirks.init();
     defer terminalquirks.deinit();
 
     const writer = std.io.getStdOut().writer();

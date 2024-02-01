@@ -1,11 +1,12 @@
 const std = @import("std");
+const builtin = @import("builtin");
 
 fn getch_windows(b: *std.Build, target: std.Build.ResolvedTarget, optimize: std.builtin.OptimizeMode) *std.Build.Step.Compile {
     var getch = b.addStaticLibrary(.{ .name = "getch", .target = target, .optimize = optimize });
-    getch.addCSourceFiles(.{ .files = &.{"src/terminal/getch_windows.c"} });
+    getch.addCSourceFiles(.{ .files = &.{"src/terminal/windows/getch.c"} });
     getch.addIncludePath(.{ .path = "src/terminal" });
     getch.linkLibC();
-    getch.installHeader("src/terminal/getch_windows.h", "getch.h");
+    getch.installHeader("src/terminal/windows/getch.h", "getch.h");
     return getch;
 }
 
@@ -94,6 +95,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    exe_unit_tests.linkLibrary(getch);
 
     const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
 

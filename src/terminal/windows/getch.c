@@ -1,4 +1,4 @@
-#include "getch_windows.h"
+#include "getch.h"
 
 int getch() {
     int d =-1, e=-1;
