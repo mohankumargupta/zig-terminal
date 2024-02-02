@@ -24,10 +24,7 @@ pub fn init() !Self {
 
     try os.tcsetattr(fd, .FLUSH, new_termios);
 
-    const term_instance = Term{
-        .termios = original_termios,
-    };
-    const quirks = Self{ .term = Term{ .termios = term_instance } };
+    const quirks = Self{ .term = Term{ .termios = original_termios } };
     return quirks; // autofix
 }
 
