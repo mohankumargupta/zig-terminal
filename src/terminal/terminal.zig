@@ -57,7 +57,7 @@ pub const Terminal = struct {
 
     pub fn println(writer: anytype, comptime fmt: []const u8, args: anytype, styles: anytype) !void {
         try print(writer, fmt, args, styles);
-        try writer.print("\n", .{});
+        try writer.print("\r\n", .{});
     }
 
     pub fn getch() void {
