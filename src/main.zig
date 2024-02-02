@@ -10,7 +10,7 @@ const Bold = @import("terminal/styles.zig").Bold;
 //const FgColor = ansi.color.Fg;
 
 pub fn main() !void {
-    var terminalquirks = TerminalQuirks.init();
+    var terminalquirks = try TerminalQuirks.init();
     defer terminalquirks.deinit();
 
     const writer = std.io.getStdOut().writer();

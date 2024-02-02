@@ -29,7 +29,7 @@ const UTF8ConsoleOutput = struct {
     }
 };
 
-pub fn init() Self {
+pub fn init() !Self {
     const ENABLE_VIRTUAL_TERMINAL_PROCESSING = 4;
     var consoleMode: u32 = 0;
     _ = kernel32.GetConsoleMode(std.io.getStdOut().handle, &consoleMode);
