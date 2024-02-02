@@ -39,9 +39,6 @@ pub fn build(b: *std.Build) void {
     // running `zig build`).
     b.installArtifact(lib);
 
-    const getch = getch_windows(b, target, optimize);
-    b.installArtifact(getch);
-
     const exe = b.addExecutable(.{
         .name = "zig-terminal",
         .root_source_file = .{ .path = "src/main.zig" },
@@ -51,6 +48,8 @@ pub fn build(b: *std.Build) void {
 
     switch (builtin.os.tag) {
         .windows => {
+            const getch = getch_windows(b, target, optimize);
+            b.installArtifact(getch);
             exe.step.dependOn(&getch.step);
             exe.linkLibrary(getch);
         },
