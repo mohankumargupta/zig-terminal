@@ -134,101 +134,101 @@ pub const csi = struct {
 pub const style = struct {
     pub const ResetAll = csi.SGR(.{0});
 
-    pub const Bold = csi.SGR(.{1});
-    pub const Faint = csi.SGR(.{2});
-    pub const Italic = csi.SGR(.{3});
-    pub const Underline = csi.SGR(.{4});
-    pub const BlinkSlow = csi.SGR(.{5});
-    pub const BlinkFast = csi.SGR(.{6});
+    //     pub const Bold = csi.SGR(.{1});
+    //     pub const Faint = csi.SGR(.{2});
+    //     pub const Italic = csi.SGR(.{3});
+    //     pub const Underline = csi.SGR(.{4});
+    //     pub const BlinkSlow = csi.SGR(.{5});
+    //     pub const BlinkFast = csi.SGR(.{6});
 
-    pub const ResetFont = csi.SGR(.{10});
-    pub const Font1 = csi.SGR(.{11});
-    pub const Font2 = csi.SGR(.{12});
-    pub const Font3 = csi.SGR(.{13});
-    pub const Font4 = csi.SGR(.{14});
-    pub const Font5 = csi.SGR(.{15});
-    pub const Font6 = csi.SGR(.{16});
-    pub const Font7 = csi.SGR(.{17});
-    pub const Font8 = csi.SGR(.{18});
-    pub const Font9 = csi.SGR(.{19});
+    //     pub const ResetFont = csi.SGR(.{10});
+    //     pub const Font1 = csi.SGR(.{11});
+    //     pub const Font2 = csi.SGR(.{12});
+    //     pub const Font3 = csi.SGR(.{13});
+    //     pub const Font4 = csi.SGR(.{14});
+    //     pub const Font5 = csi.SGR(.{15});
+    //     pub const Font6 = csi.SGR(.{16});
+    //     pub const Font7 = csi.SGR(.{17});
+    //     pub const Font8 = csi.SGR(.{18});
+    //     pub const Font9 = csi.SGR(.{19});
 
-    pub const UnderlineDouble = csi.SGR(.{21});
-    pub const ResetIntensity = csi.SGR(.{22});
-    pub const ResetItalic = csi.SGR(.{23});
-    pub const ResetUnderline = csi.SGR(.{24});
-    pub const ResetBlink = csi.SGR(.{25});
+    //     pub const UnderlineDouble = csi.SGR(.{21});
+    //     pub const ResetIntensity = csi.SGR(.{22});
+    //     pub const ResetItalic = csi.SGR(.{23});
+    //     pub const ResetUnderline = csi.SGR(.{24});
+    //     pub const ResetBlink = csi.SGR(.{25});
 
-    pub const FgBlack = csi.SGR(.{30});
-    pub const FgRed = csi.SGR(.{31});
-    pub const FgGreen = csi.SGR(.{32});
-    pub const FgYellow = csi.SGR(.{33});
-    pub const FgBlue = csi.SGR(.{34});
-    pub const FgMagenta = csi.SGR(.{35});
-    pub const FgCyan = csi.SGR(.{36});
-    pub const FgWhite = csi.SGR(.{37});
-    // Fg8bit       = func(n int) string { return csi.SGR(38, 5, n) }
-    // Fg24bit      = func(r, g, b int) string { return csi.SGR(38, 2, r, g, b) }
-    pub const ResetFgColor = csi.SGR(.{39});
+    //     pub const FgBlack = csi.SGR(.{30});
+    //     pub const FgRed = csi.SGR(.{31});
+    //     pub const FgGreen = csi.SGR(.{32});
+    //     pub const FgYellow = csi.SGR(.{33});
+    //     pub const FgBlue = csi.SGR(.{34});
+    //     pub const FgMagenta = csi.SGR(.{35});
+    //     pub const FgCyan = csi.SGR(.{36});
+    //     pub const FgWhite = csi.SGR(.{37});
+    //     // Fg8bit       = func(n int) string { return csi.SGR(38, 5, n) }
+    //     // Fg24bit      = func(r, g, b int) string { return csi.SGR(38, 2, r, g, b) }
+    //     pub const ResetFgColor = csi.SGR(.{39});
 
-    pub const BgBlack = csi.SGR(.{40});
-    pub const BgRed = csi.SGR(.{41});
-    pub const BgGreen = csi.SGR(.{42});
-    pub const BgYellow = csi.SGR(.{43});
-    pub const BgBlue = csi.SGR(.{44});
-    pub const BgMagenta = csi.SGR(.{45});
-    pub const BgCyan = csi.SGR(.{46});
-    pub const BgWhite = csi.SGR(.{47});
-    // Bg8bit       = func(n int) string { return csi.SGR(48, 5, n) }
-    // Bg24bit      = func(r, g, b int) string { return csi.SGR(48, 2, r, g, b) }
-    pub const ResetBgColor = csi.SGR(.{49});
+    //     pub const BgBlack = csi.SGR(.{40});
+    //     pub const BgRed = csi.SGR(.{41});
+    //     pub const BgGreen = csi.SGR(.{42});
+    //     pub const BgYellow = csi.SGR(.{43});
+    //     pub const BgBlue = csi.SGR(.{44});
+    //     pub const BgMagenta = csi.SGR(.{45});
+    //     pub const BgCyan = csi.SGR(.{46});
+    //     pub const BgWhite = csi.SGR(.{47});
+    //     // Bg8bit       = func(n int) string { return csi.SGR(48, 5, n) }
+    //     // Bg24bit      = func(r, g, b int) string { return csi.SGR(48, 2, r, g, b) }
+    //     pub const ResetBgColor = csi.SGR(.{49});
 
-    pub const Framed = csi.SGR(.{51});
-    pub const Encircled = csi.SGR(.{52});
-    pub const Overlined = csi.SGR(.{53});
-    pub const ResetFrameEnci = csi.SGR(.{54});
-    pub const ResetOverlined = csi.SGR(.{55});
+    //     pub const Framed = csi.SGR(.{51});
+    //     pub const Encircled = csi.SGR(.{52});
+    //     pub const Overlined = csi.SGR(.{53});
+    //     pub const ResetFrameEnci = csi.SGR(.{54});
+    //     pub const ResetOverlined = csi.SGR(.{55});
 };
 
-pub const color = struct {
-    pub const Color = enum(u8) {
-        Black,
-        Red,
-        Green,
-        Yellow,
-        Blue,
-        Magenta,
-        Cyan,
-        White,
-    };
+// pub const color = struct {
+//     pub const Color = enum(u8) {
+//         Black,
+//         Red,
+//         Green,
+//         Yellow,
+//         Blue,
+//         Magenta,
+//         Cyan,
+//         White,
+//     };
 
-    pub fn Fg(s: Color, comptime m: []const u8) []const u8 {
-        return csi.SGR(.{30 + @intFromEnum(s)}) ++ m ++ style.ResetFgColor;
-    }
+//     pub fn Fg(s: Color, comptime m: []const u8) []const u8 {
+//         return csi.SGR(.{30 + @intFromEnum(s)}) ++ m ++ style.ResetFgColor;
+//     }
 
-    pub fn Bg(s: Color, comptime m: []const u8) []const u8 {
-        return csi.SGR(.{40 + @intFromEnum(s)}) ++ m ++ style.ResetBgColor;
-    }
+//     pub fn Bg(s: Color, comptime m: []const u8) []const u8 {
+//         return csi.SGR(.{40 + @intFromEnum(s)}) ++ m ++ style.ResetBgColor;
+//     }
 
-    pub fn Bold(comptime m: []const u8) []const u8 {
-        return style.Bold ++ m ++ style.ResetIntensity;
-    }
+//     pub fn Bold(comptime m: []const u8) []const u8 {
+//         return style.Bold ++ m ++ style.ResetIntensity;
+//     }
 
-    pub fn Faint(comptime m: []const u8) []const u8 {
-        return style.Faint ++ m ++ style.ResetIntensity;
-    }
+//     pub fn Faint(comptime m: []const u8) []const u8 {
+//         return style.Faint ++ m ++ style.ResetIntensity;
+//     }
 
-    pub fn Italic(comptime m: []const u8) []const u8 {
-        return style.Italic ++ m ++ style.ResetItalic;
-    }
+//     pub fn Italic(comptime m: []const u8) []const u8 {
+//         return style.Italic ++ m ++ style.ResetItalic;
+//     }
 
-    pub fn Underline(comptime m: []const u8) []const u8 {
-        return style.Underline ++ m ++ style.ResetUnderline;
-    }
-};
+//     pub fn Underline(comptime m: []const u8) []const u8 {
+//         return style.Underline ++ m ++ style.ResetUnderline;
+//     }
+// };
 
-//
-// private
-//
+// //
+// // private
+// //
 
 fn _join(comptime delim: []const u8, comptime xs: [][]const u8) []const u8 {
     var buf: []const u8 = "";
