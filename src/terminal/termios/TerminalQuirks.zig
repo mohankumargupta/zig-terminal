@@ -27,10 +27,11 @@ pub fn init() !Self {
     const term_instance = Term{
         .termios = original_termios,
     };
-    return term_instance; // autofix
+    const quirks = Self{ .term = Term{ .termios = term_instance } };
+    return quirks; // autofix
 }
 
 pub fn deinit(self: Self) void {
     const handle = std.io.getStdIn().handle;
-    os.tcsetattr(handle, .FLUSH, self.termios) catch {};
+    os.tcsetattr(handle, .FLUSH, self.term.termios) catch {};
 }
