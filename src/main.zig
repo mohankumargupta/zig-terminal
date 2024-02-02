@@ -39,7 +39,7 @@ pub fn main() !void {
         .{},
         color1,
     );
-    try writer.print("\n", .{});
+    try writer.print("\r\n", .{});
     try Terminal.println(
         writer,
         "this is blue",
@@ -52,7 +52,7 @@ pub fn main() !void {
         .{},
         .{ Bold, FgColor.Blue },
     );
-    try writer.print("Enter a key to exit\n", .{});
+    try writer.print("Enter a key to exit\r\n", .{});
     Terminal.getch();
 
     //windows key codes
