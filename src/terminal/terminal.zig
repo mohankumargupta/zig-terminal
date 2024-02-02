@@ -4,7 +4,11 @@ const ansi = @import("ansi.zig");
 const ansiStyles = @import("styles.zig");
 const FgColor = ansiStyles.FgColor;
 const BgColor = ansiStyles.BgColor;
-const c = @cImport(@cInclude("getch.h"));
+const builtin = @import("builtin");
+const _getch = switch (builtin.os.tag) {
+    .windows => @cImport(@cInclude("getch.h")),
+    else => @cImport(@cInclude("getch.h")),
+};
 
 const ArrowKeys = enum(c_int) { NOTARROW = 0, UP = 17, DOWN = 18, LEFT = 19, RIGHT = 20 };
 
@@ -57,7 +61,10 @@ pub const Terminal = struct {
     }
 
     pub fn getch() void {
-        const ch = c.getch();
+        const ch = switch (builtin.os.tag) {
+            .windows => _getch.getch(),
+            else => {},
+        };
         const arrow: ArrowKeys = std.meta.intToEnum(ArrowKeys, ch) catch ArrowKeys.NOTARROW;
         std.log.info("{}", .{ch});
         std.log.info("{any}", .{arrow});

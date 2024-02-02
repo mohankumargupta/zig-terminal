@@ -49,8 +49,13 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    exe.step.dependOn(&getch.step);
-    exe.linkLibrary(getch);
+    switch (builtin.os.tag) {
+        .windows => {
+            exe.step.dependOn(&getch.step);
+            exe.linkLibrary(getch);
+        },
+        else => {},
+    }
 
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
@@ -95,7 +100,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    exe_unit_tests.linkLibrary(getch);
+    //exe_unit_tests.linkLibrary(getch);
 
     const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
 
