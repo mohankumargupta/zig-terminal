@@ -4,6 +4,10 @@ const ansi = @import("ansi.zig");
 const ansiStyles = @import("styles.zig");
 const FgColor = ansiStyles.FgColor;
 const BgColor = ansiStyles.BgColor;
+const FgPaletteColor = ansiStyles.FgPaletteColor;
+const FgRGBColor = ansiStyles.FgRGBColor;
+const BgPaletteColor = ansiStyles.BgPaletteColor;
+const BgRGBColor = ansiStyles.BgRGBColor;
 const builtin = @import("builtin");
 const _getch = switch (builtin.os.tag) {
     .windows => @cImport(@cInclude("getch.h")),
@@ -43,6 +47,50 @@ pub const Terminal = struct {
                     },
                     comptime_int => {
                         ansiescapecodes[styleCount] = styles[index];
+                        styleCount += 1;
+                    },
+                    FgPaletteColor => {
+                        const palette = @as(FgPaletteColor, styles[index]);
+                        ansiescapecodes[styleCount] = 38;
+                        styleCount += 1;
+                        ansiescapecodes[styleCount] = 5;
+                        styleCount += 1;
+                        ansiescapecodes[styleCount] = palette.color;
+                        styleCount += 1;
+                    },
+                    FgRGBColor => {
+                        const rgb = @as(FgRGBColor, styles[index]);
+                        ansiescapecodes[styleCount] = 38;
+                        styleCount += 1;
+                        ansiescapecodes[styleCount] = 2;
+                        styleCount += 1;
+                        ansiescapecodes[styleCount] = rgb.r;
+                        styleCount += 1;
+                        ansiescapecodes[styleCount] = rgb.g;
+                        styleCount += 1;
+                        ansiescapecodes[styleCount] = rgb.b;
+                        styleCount += 1;
+                    },
+                    BgPaletteColor => {
+                        const palette = @as(BgPaletteColor, styles[index]);
+                        ansiescapecodes[styleCount] = 48;
+                        styleCount += 1;
+                        ansiescapecodes[styleCount] = 5;
+                        styleCount += 1;
+                        ansiescapecodes[styleCount] = palette.color;
+                        styleCount += 1;
+                    },
+                    BgRGBColor => {
+                        const rgb = @as(BgRGBColor, styles[index]);
+                        ansiescapecodes[styleCount] = 48;
+                        styleCount += 1;
+                        ansiescapecodes[styleCount] = 2;
+                        styleCount += 1;
+                        ansiescapecodes[styleCount] = rgb.r;
+                        styleCount += 1;
+                        ansiescapecodes[styleCount] = rgb.g;
+                        styleCount += 1;
+                        ansiescapecodes[styleCount] = rgb.b;
                         styleCount += 1;
                     },
                     else => {},

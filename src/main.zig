@@ -4,6 +4,8 @@ const TerminalQuirks = @import("terminal/terminal_quirks.zig").TerminalQuirks;
 const Terminal = term.Terminal;
 const FgColor = @import("terminal/styles.zig").FgColor;
 const BgColor = @import("terminal/styles.zig").BgColor;
+const FgPaletteColor = @import("terminal/styles.zig").FgPaletteColor;
+const BgPaletteColor = @import("terminal/styles.zig").BgPaletteColor;
 const Bold = @import("terminal/styles.zig").Bold;
 //const ansi = @import("terminal/ansi.zig");
 //const Color = ansi.color.Color;
@@ -51,6 +53,21 @@ pub fn main() !void {
         "this is bold blue",
         .{},
         .{ Bold, FgColor.Blue },
+    );
+    try Terminal.println(
+        writer,
+        "this is pink",
+        .{},
+        .{FgPaletteColor{ .color = 200 }},
+    );
+    try Terminal.println(
+        writer,
+        "this is red with grey color",
+        .{},
+        .{
+            BgPaletteColor{ .color = 245 },
+            FgColor.Red,
+        },
     );
     try writer.print("Enter a key to exit\r\n", .{});
     Terminal.getch();

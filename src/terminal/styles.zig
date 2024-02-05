@@ -20,6 +20,11 @@ pub const BgColor = enum(u8) {
     White = 47,
 };
 
+pub const FgPaletteColor = struct { color: u8 };
+pub const FgRGBColor = struct { r: u8, g: u8, b: u8 };
+pub const BgPaletteColor = struct { color: u8 };
+pub const BgRGBColor = struct { r: u8, g: u8, b: u8 };
+
 pub const Bold = 1;
 pub const Faint = 2;
 pub const Italic = 3;
