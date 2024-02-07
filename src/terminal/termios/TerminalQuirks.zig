@@ -5,7 +5,7 @@ term: Term = undefined,
 
 const Self = @This();
 
-const Term = struct { termios: os.termios };
+const Term = struct { old_termios: os.termios, new_termios: os.termios };
 
 //https://github.com/Luukdegram/pit/blob/master/src/term.zig#L69-L90
 
@@ -22,13 +22,21 @@ pub fn init() !Self {
     new_termios.cc[6] = 0; // VMIN
     new_termios.cc[5] = 1; // VTIME
 
-    try os.tcsetattr(fd, .FLUSH, new_termios);
-
-    const quirks = Self{ .term = Term{ .termios = original_termios } };
-    return quirks; // autofix
+    return Self{ .term = Term{ .old_termios = original_termios, .new_termios = new_termios } };
 }
 
-pub fn deinit(self: Self) void {
+pub fn enableRawMode(self: Self) !void {
+    const fd = std.io.getStdIn().handle;
+    try os.tcsetattr(fd, .FLUSH, self.term.new_termios);
+}
+
+pub fn disableRawMode(self: Self) !void {
+    const fd = std.io.getStdIn().handle;
+    try os.tcsetattr(fd, .FLUSH, self.term.old_termios);
+}
+
+pub fn deinit(self: Self) !void {
     const handle = std.io.getStdIn().handle;
-    os.tcsetattr(handle, .FLUSH, self.term.termios) catch {};
+    os.tcsetattr(handle, .FLUSH, self.term.old_termios);
+    std.io.getStdOut().write("\r\n");
 }
